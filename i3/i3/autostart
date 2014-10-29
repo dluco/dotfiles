@@ -1,0 +1,19 @@
+#!/bin/bash
+#
+# i3 autostart script
+#
+
+# restore wallpaper
+nitrogen --restore &
+
+# start composite manager
+compton &
+
+# start NetworkManager applet - don't actually want, but needed for wifi to work
+nm-applet &
+
+# start clipboard manager
+clipit --daemon &
+
+# start dropbox daemon
+dropboxd &

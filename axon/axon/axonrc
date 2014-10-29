@@ -1,0 +1,17 @@
+[axon]
+font=Monospace, 11
+title_mode=replace
+color_scheme=solarized-dark
+opacity=90
+scroll_on_output=false
+scroll_on_keystroke=true
+scrollbar=false
+scrollback_lines=-1
+audible_bell=false
+visible_bell=false
+blinking_cursor=false
+cursor_type=block
+autohide_mouse=false
+word_chars=-A-Za-z0-9,./?%&#:_=+@~
+allow_bold=true
+highlight_urls=true

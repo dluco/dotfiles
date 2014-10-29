@@ -1,0 +1,32 @@
+# ZATHURARC
+#
+
+# font
+set font "terminus normal 9"
+
+# Specify the taskbar and window icon
+set window-icon /home/david/Dropbox/Public/zathura-final.svg
+
+# Default background/foreground colors
+set default-bg "#000000"
+set default-fg "#FFFFFF"
+
+# Background color for the inputbar
+set inputbar-bg "#FFFFFF"
+
+# Foreground color for the inputbar
+set inputbar-fg "#000000"
+
+# Highlight color - used for highlighting parts of the document
+set highlight-color "#1692D0"
+
+# Active highlight color - for current selected element
+set highlight-active-color "#FF0000"
+
+# Completion line settings
+set completion-highlight-bg "#1692D0"
+
+set completion-highlight-fg "#000000"
+
+# "Loading..." Settings
+set render-loading false

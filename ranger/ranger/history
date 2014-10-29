@@ -1,0 +1,50 @@
+set update_title true
+open_with 5
+rename config.h
+rename config.def.h
+rename A6.pdf
+mkdir Projects
+open_with 2
+rename
+rename CDFPlayer_9.0.1_LINUX.sh
+rename 
+rename Nature_1993_Malhotra.pdf
+rename 1-MMSN.pdf
+rename Rainbows.pdf
+rename p325hw1soln-final.pdf
+rename surf
+rename mutt
+open_with 
+rename experiment8.tex
+rename A2csc230b.s
+rename A2csc230a.s
+shell tar -xvf
+shell tar -xvf lkl-0.1.1.tar.gz
+rename flowchart_info.pdf
+mkdir slim
+open_with vim
+rename image1.jpeg
+rename Tutorial6.pdf
+open_with thunar
+open_with 0
+delete
+open_with zathura
+rename Tutorial7.pdf
+rename Tutorial1.pdf
+open_with evince
+mkdir labs
+rename template.tex
+rename i3status/
+rename i3
+open_with  geany
+open_with  gimp
+open_with leafpad
+!echo test
+s
+shell echo $EDITOR; read
+
+delete 
+rename exp31
+rename exp34
+rename exp3
+open_with 1
