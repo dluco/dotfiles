@@ -1,0 +1,75 @@
+background yes
+use_xft yes
+#xftfont Liberation Sans:size=9
+#xftfont Bitwise:size=9
+xftfont Terminus:size=9
+xftalpha 1
+override_utf8_locale no
+uppercase no
+
+#behaviour
+update_interval 1.0
+total_run_times 0
+cpu_avg_samples 2
+#subtract (file system) buffers from used memory
+no_buffers yes
+#shortens units to a single character
+short_units no
+
+#window
+own_window yes
+own_window_transparent yes
+own_window_type desktop
+#own_window_argb_visual no
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+#avoid flicker
+double_buffer yes
+
+minimum_size 200 200
+maximum_width 240
+draw_shades no
+draw_outline no
+
+#borders
+draw_borders no
+draw_graph_borders no
+
+#colour
+#default_color 656667 < grey
+default_color white
+default_shade_color 000000
+default_outline_color 828282
+
+#position
+alignment top_right
+gap_x 12
+gap_y 56
+
+TEXT
+system  ${hr 2}
+${hr}
+host:$alignr$nodename
+uptime:$alignr$uptime
+cpu:$alignr${cpu cpu0}%
+${cpugraph cpu0 -t}
+
+memory ${hr 2}
+ram:$alignr$mem/$memmax $alignr $memperc%
+$membar
+
+disks ${hr 2}
+/ $alignc ${fs_used /} / ${fs_size /} $alignr ${fs_used_perc /}%
+${fs_bar /}
+swap $alignc ${swap} / ${swapmax} $alignr ${swapperc}%
+${swapbar}
+
+network ${hr 2}
+${hr}
+ip:$alignr${addr wlp2s0}
+essid: $alignr ${wireless_essid wlp2s0}
+quality: $alignr ${wireless_link_qual_perc wlp2s0}%
+${downspeedgraph wlp2s0}
+dls:${downspeed wlp2s0} kb/s $alignr total: ${totaldown wlp2s0}
+${upspeedgraph wlp2s0}
+uls:${upspeed wlp2s0} kb/s $alignr total: ${totalup wlp2s0}
