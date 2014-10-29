@@ -1,0 +1,10 @@
+# colors
+#color background white default
+#color listnormal white default
+color listfocus white blue
+color info white blue
+color listfocus_unread white blue
+#color listnormal_unread white default
+
+# sorting: alpha
+feed-sort-order name
