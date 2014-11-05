@@ -128,8 +128,13 @@ nmap <silent> <leader>e :NERDTreeToggle<CR>
 " => Syntastic
 "--------------------------------------------------------------
 
+" Set when automatic syntax checking should be done (+ filetypes)
+let g:syntastic_mode_map = { "mode": "active",
+							\"passive_filetypes": ["tex"]}
+
 " Run syntax checker(s)
 nmap <leader>c :SyntasticCheck<CR>
 
 " Reset list of errors and hide notifications
 nmap <leader>C :SyntasticReset<CR>
+
