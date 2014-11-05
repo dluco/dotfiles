@@ -110,7 +110,7 @@ set titlestring=VIM:\%F
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Show the statusline (1=don't show, 2=always)
-set laststatus=1
+set laststatus=2
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -130,3 +130,6 @@ nmap <silent> <leader>e :NERDTreeToggle<CR>
 
 " Run syntax checker(s)
 nmap <leader>c :SyntasticCheck<CR>
+
+" Reset list of errors and hide notifications
+nmap <leader>C :SyntasticReset<CR>
