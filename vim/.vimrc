@@ -93,6 +93,19 @@ set wrap		"Wrap lines
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Title
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Show VIM title in terminal window's title
+set title
+
+" Disable "Thanks for flying VIM!" on exit
+let &titleold=""
+
+" Set titlestring to display name of current file
+set titlestring=VIM:\%F
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Status line
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -104,12 +117,16 @@ set laststatus=1
 " => Plugin settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+"--------------------------------------------------------------
 " => NERDTree
+"--------------------------------------------------------------
 
 " Toggle Tree visibility with <leader>e
 nmap <silent> <leader>e :NERDTreeToggle<CR>
 
+"--------------------------------------------------------------
 " => Syntastic
+"--------------------------------------------------------------
 
 " Run syntax checker(s)
 nmap <leader>c :SyntasticCheck<CR>
