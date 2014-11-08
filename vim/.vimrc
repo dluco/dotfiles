@@ -17,7 +17,7 @@ filetype plugin on
 filetype indent on
 
 " Disable vi-compatibility
-"set nocompatible
+set nocompatible
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -48,8 +48,10 @@ set incsearch
 " Bind key to clear search highlighting
 "nmap <leader>/ :nohlsearch<CR>
 
-" Don't redraw while executing macros (good performance config)
-set lazyredraw
+" Don't redraw while executing macros (good performance config).
+" Note: causes window title and statusline to not be updated
+" on startup.
+"set lazyredraw
 
 " Turn on magic for regular expressions
 set magic
@@ -123,6 +125,21 @@ set titlestring=VIM:\%F
 " Show the statusline (1=don't show, 2=always)
 set laststatus=2
 
+" Statusline format
+set statusline=%t								"tail of the filename
+set statusline+=\ %m								"modified flag
+set statusline+=%r								"read-only flag
+
+set statusline+=%=								"left/right separator
+
+set statusline+=%y								"filetype
+set statusline+=%h								"help line flag
+set statusline+=[%{strlen(&fenc)?&fenc:'none'},	"file encoding
+set statusline+=%{&ff}]							"file format
+set statusline+=\ %l/%L:						"cursor line/total lines
+set statusline+=\ %c							"cursor column
+set statusline+=\ %P							"percent through file
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin settings
@@ -140,7 +157,7 @@ nmap <silent> <leader>e :NERDTreeToggle<CR>
 "--------------------------------------------------------------
 
 " Set when automatic syntax checking should be done (+ filetypes)
-let g:syntastic_mode_map = { "mode": "active",
+let g:syntastic_mode_map = { "mode": "passive",
 							\"passive_filetypes": ["tex"]}
 
 " Run syntax checker(s)
@@ -149,3 +166,16 @@ nmap <leader>c :SyntasticCheck<CR>
 " Reset list of errors and hide notifications
 nmap <leader>C :SyntasticReset<CR>
 
+"--------------------------------------------------------------
+" => Airline
+"--------------------------------------------------------------
+
+" Set colortheme
+"let g:airline_theme='simple'
+
+" Automatically populate the g:airline_symbols dictionary
+" with proper font glyphs and various symbols
+"let g:airline_powerline_fonts = 0
+
+" Prevent delay when leaving Insert mode (Airline)
+"set timeoutlen=0

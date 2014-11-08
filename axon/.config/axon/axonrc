@@ -1,5 +1,6 @@
 [axon]
-font=Monospace, 11
+# font=Monospace, 11
+font=Terminus, 12
 title_mode=replace
 color_scheme=solarized-dark
 opacity=90
