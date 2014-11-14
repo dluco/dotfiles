@@ -186,6 +186,9 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# Hide window titles
+#new_window pixel 2
+
 # Colors for window titles, etc.
 # class                 border  backgr. text    indicator
 client.focused 			#2aa198 #2aa198 #fdf6e3 #859900
