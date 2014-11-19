@@ -4,7 +4,7 @@
 #
 
 # restore wallpaper
-nitrogen --restore &
+eval $(cat ~/.bg) &
 
 # start composite manager
 compton &

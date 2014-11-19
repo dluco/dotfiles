@@ -149,7 +149,7 @@ bindsym $mod+Ctrl+Right workspace next
 assign [class="Firefox"] $ws2
 assign [class="Zathura"] $ws3
 assign [class="Gimp"] $ws4
-assign [class="Thunar"] $ws4
+assign [class="Spacefm"] $ws4
 
 # reload the configuration file
 bindsym $mod+Shift+c reload

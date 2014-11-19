@@ -3,7 +3,7 @@
 font=Terminus, 12
 title_mode=replace
 color_scheme=solarized-dark
-opacity=90
+opacity=95
 scroll_on_output=false
 scroll_on_keystroke=true
 scrollbar=false
