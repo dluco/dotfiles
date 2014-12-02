@@ -29,6 +29,10 @@ alias termname=$'basename $(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 
 # Enhance colored "ls" output
 eval $(dircolors -b)
 
+# History control
+export HISTCONTROL=ignoreboth
+export HISTSIZE=1000
+
 # set bash prompt
 # with set-title
 #PS1="\[\033]0;\u@\h:\w\007\][\u@\h \W]\$ "
