@@ -137,7 +137,7 @@ set statusline+=%h								"help line flag
 set statusline+=[%{strlen(&fenc)?&fenc:'none'},	"file encoding
 set statusline+=%{&ff}]							"file format
 set statusline+=\ %l/%L:						"cursor line/total lines
-set statusline+=\ %c							"cursor column
+set statusline+=\ %c,							"cursor column
 set statusline+=\ %P							"percent through file
 
 
