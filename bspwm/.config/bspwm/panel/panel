@@ -1,0 +1,42 @@
+#! /bin/sh
+
+cd $(dirname $0)
+DIR=$(pwd)
+
+source $DIR/config
+
+if [ $(pgrep -cx panel) -gt 1 ] ; then
+	printf "%s\n" "The panel is already running." >&2
+	exit 1
+fi
+
+trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
+
+# remove any existing fifos
+[ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
+mkfifo "$PANEL_FIFO"
+
+# match panel height to padding left by wm
+bspc config top_padding $PANEL_HEIGHT
+
+bspc control --subscribe > "$PANEL_FIFO" &
+xtitle -sf 'T%s' > "$PANEL_FIFO" &
+# volume
+volume -d hw:0 -i "$VOLUME_INTERVAL" -sf "VV: %s %i%%%%" > "$PANEL_FIFO" &
+# wifi
+essid -w wlp3s0 -i "$WIFI_INTERVAL" -sf "NW: %s" > "$PANEL_FIFO" &
+# battery
+battery -n 0 -i "$BATTERY_INTERVAL" -sf "B0BAT0: %s %i%%%%" > "$PANEL_FIFO" &
+battery -n 1 -i "$BATTERY_INTERVAL" -sf "B1BAT1: %s %i%%%%" > "$PANEL_FIFO" &
+# clock
+clock -i "$CLOCK_INTERVAL" -sf 'C[%a %b %d] %l:%M %P' > "$PANEL_FIFO" &
+
+cat "$PANEL_FIFO" \
+	| ./panel_bar \
+	| bar \
+		-g x$PANEL_HEIGHT \
+		-f "$PANEL_FONT_FAMILY" \
+		-F "$COLOR_FOREGROUND" \
+		-B "$COLOR_BACKGROUND" &
+
+wait
