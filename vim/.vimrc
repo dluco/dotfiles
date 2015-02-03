@@ -9,15 +9,15 @@ set history=1024
 let mapleader = ","
 let g:mapleader = ","
 
-" Use Pathogen to manage plugins
-execute pathogen#infect()
-
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
 
 " Disable vi-compatibility
 set nocompatible
+
+" Disable splash screen
+set shortmess+=I
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -80,7 +80,7 @@ set ffs=unix,dos,mac
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Use spaces instead of tabs
-"set expandtab
+set expandtab
 
 " Be smart with tabs
 set smarttab
@@ -139,43 +139,3 @@ set statusline+=%{&ff}]							"file format
 set statusline+=\ %l/%L:						"cursor line/total lines
 set statusline+=\ %c,							"cursor column
 set statusline+=\ %P							"percent through file
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugin settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"--------------------------------------------------------------
-" => NERDTree
-"--------------------------------------------------------------
-
-" Toggle Tree visibility with <leader>e
-nmap <silent> <leader>e :NERDTreeToggle<CR>
-
-"--------------------------------------------------------------
-" => Syntastic
-"--------------------------------------------------------------
-
-" Set when automatic syntax checking should be done (+ filetypes)
-let g:syntastic_mode_map = { "mode": "passive",
-							\"passive_filetypes": ["tex"]}
-
-" Run syntax checker(s)
-nmap <leader>c :SyntasticCheck<CR>
-
-" Reset list of errors and hide notifications
-nmap <leader>C :SyntasticReset<CR>
-
-"--------------------------------------------------------------
-" => Airline
-"--------------------------------------------------------------
-
-" Set colortheme
-"let g:airline_theme='simple'
-
-" Automatically populate the g:airline_symbols dictionary
-" with proper font glyphs and various symbols
-"let g:airline_powerline_fonts = 0
-
-" Prevent delay when leaving Insert mode (Airline)
-"set timeoutlen=0
