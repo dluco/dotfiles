@@ -80,7 +80,7 @@ set ffs=unix,dos,mac
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Use spaces instead of tabs
-set expandtab
+"set expandtab
 
 " Be smart with tabs
 set smarttab
