@@ -106,6 +106,16 @@ map <Down> gj
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Movement
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+nmap <silent> <c-k> :wincmd k<CR>
+nmap <silent> <c-j> :wincmd j<CR>
+nmap <silent> <c-h> :wincmd h<CR>
+nmap <silent> <c-l> :wincmd l<CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Title
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -126,8 +136,8 @@ set titlestring=VIM:\%F
 set laststatus=2
 
 " Statusline format
-set statusline=%t								"tail of the filename
-set statusline+=\ %m								"modified flag
+set statusline=\ %t								"tail of the filename
+set statusline+=\ %m							"modified flag
 set statusline+=%r								"read-only flag
 
 set statusline+=%=								"left/right separator
@@ -138,4 +148,4 @@ set statusline+=[%{strlen(&fenc)?&fenc:'none'},	"file encoding
 set statusline+=%{&ff}]							"file format
 set statusline+=\ %l/%L:						"cursor line/total lines
 set statusline+=\ %c,							"cursor column
-set statusline+=\ %P							"percent through file
+set statusline+=\ %P\ 							"percent through file

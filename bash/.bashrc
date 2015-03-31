@@ -18,6 +18,9 @@ alias dirs='dirs -v'
 # Enable interpretation of escape sequences (ie. colors)
 #alias less='less -R'
 
+# Pass aliases to root account when using sudo
+alias sudo='sudo '
+
 # Get mimetype of a file
 alias mimetype='file --brief --mime-type'
 
