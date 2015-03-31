@@ -18,11 +18,13 @@ bspc monitor -d 1 2 3 4 5 6 7 8 9 10
 bspc desktop ^2 -l monocle
 
 # rules
-bspc rule -a Firefox        desktop=^2  follow=on
-bspc rule -a Zathura        desktop=^3
-bspc rule -a MPlayer        desktop=^5  follow=on floating=on
-bspc rule -a Gimp           desktop=^8  follow=on floating=on
-bspc rule -a libreoffice    desktop=^4  follow=on
+bspc rule -a Firefox            desktop=^2 follow=on
+bspc rule -a Chromium           desktop=^2 follow=on
+bspc rule -a Zathura            desktop=^3
+bspc rule -a libreoffice        desktop=^4 follow=on
+bspc rule -a qemu-system-x86_64 desktop=^4 follow=on
+bspc rule -a mpv                desktop=^5 follow=on floating=on
+bspc rule -a Gimp               desktop=^8 follow=on floating=on
 
 # colors
 bspc config focused_border_color        "#2aa198"
@@ -38,4 +40,4 @@ bspc config presel_border_color         "#cb4b16"
 xsetroot -cursor_name left_ptr &
 
 # start panel
-#~/.config/bspwm/panel/panel &
+~/.config/bspwm/panel/panel &

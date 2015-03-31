@@ -1,87 +1,108 @@
 #! /bin/sh
 #
-# panel for LemonBoy's bar
-#
-# NOTE: items that are on different timers must be contained in separate variables
+# Example panel for LemonBoy's bar
 
-source $(dirname $0)/config
+source $(dirname $0)/panel_config
 
-num_mon=$(bspc query -M | wc -l)
+sep="%{F$COLOR_FG_DIM}|%{F-}"
+
+update_vol() {
+    state=$(volume)
+    if [ $(echo $state | cut -d ' ' -f 1) == "off" ]; then
+        volume="%{F$COLOR_FG_DIM}%{F-}"
+    else
+        vol_percent=$(echo $state | cut -d ' ' -f 2)
+        if [ $vol_percent -gt 66 ]; then
+            vol_color=$COLOR_BASE1
+        elif [ $vol_percent -gt 33 ]; then
+            vol_color=$COLOR_BASE0
+        else
+            vol_color=$COLOR_BASE00
+        fi
+        volume="%{F$vol_color} ${vol_percent}%%%{F-}"
+    fi
+}
 
 while read -r line ; do
-	case $line in
-		V*)
-			# volume output
-			volume_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG} ${line#?} %{B-}%{F-}"
-			;;
-		N*)
-			# wireless output
-			wifi_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG} ${line#?} %{B-}%{F-}"
-			;;
-		B*)
-			# battery output
-			name=${line#?}
-			case $name in
-				0*)
-					bat0_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG} ${name#?} %{B-}%{F-}"
-					;;
-				1*)
-					bat1_info="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG} ${name#?} %{B-}%{F-}"
-					;;
-			esac
-			;;
-		C*)
-			# clock output
-			sys_infos="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG} ${line#?} %{B-}%{F-}"
-			;;
-		T*)
-			# xtitle output
-			title="%{F$COLOR_TITLE_FG}%{B$COLOR_TITLE_BG} ${line#?} %{B-}%{F-}"
-			;;
-		W*)
-			# bspwm internal state
-			wm_infos=""
-			IFS=':'
-			set -- ${line#?}
-			while [ $# -gt 0 ] ; do
-				item=$1
-                case $item in
-                    [OFUofu]*)
-                        # desktops
-                        name=${item#?}
-                        case $item in
-                            O*)
-                                # focused occupied desktop
-                                desk="%{F$COLOR_FOCUSED_OCCUPIED_FG}%{B$COLOR_FOCUSED_OCCUPIED_BG}${PAD}${name}${PAD}%{B-}%{F-}"
-                                ;;
-                            F*)
-                                # focused free desktop
-                                desk="%{F$COLOR_FOCUSED_FREE_FG}%{B$COLOR_FOCUSED_FREE_BG}${PAD}${name}${PAD}%{B-}%{F-}"
-                                ;;
-                            U*)
-                                # focused urgent desktop
-                                desk="%{F$COLOR_FOCUSED_URGENT_FG}%{B$COLOR_FOCUSED_URGENT_BG}${PAD}${name}${PAD}%{B-}%{F-}"
-                                ;;
-                            o*)
-                                # occupied desktop
-                                desk="%{F$COLOR_OCCUPIED_FG}%{B$COLOR_OCCUPIED_BG}${PAD}${name}${PAD}%{B-}%{F-}"
-                                ;;
-                            f*)
-                                # free desktop
-                                desk="%{F$COLOR_FREE_FG}%{B$COLOR_FREE_BG}${PAD}${name}${PAD}%{B-}%{F-}"
-                                ;;
-                            u*)
-                                # urgent desktop
-                                desk="%{F$COLOR_URGENT_FG}%{B$COLOR_URGENT_BG}${PAD}${name}${PAD}%{B-}%{F-}"
-                                ;;
-                        esac
-                        # create clickable area
-                        wm_infos="${wm_infos}%{A:bspc desktop -f ${name}:}${desk}%{A}"
-                        ;;
-				esac
-				shift
+    case $line in
+        V*)
+            update_vol
+            ;;
+        C*)
+            clock="%{F$COLOR_BLUE}%{F-} ${line#?}"
+
+            essid=$(essid -w wlp3s0)
+            if [ "$essid" == "" ]; then
+                wifi="%{F$COLOR_FG_DIM}%{F-}"
+            else
+                wifi="%{F$COLOR_GREEN} ${essid}%{F-}"
+            fi
+
+			battery=""
+			space=""
+			for i in 0 1; do
+				batt=$(battery -n $i)
+				bat_perc=$(echo $batt | cut -d ' ' -f 2)
+				bat_status=$(echo $batt | cut -d ' ' -f 1)
+
+				if [ $bat_perc -gt 70 ]; then
+					bat_color=$COLOR_GREEN
+					bat_symbol=""
+				elif [ $bat_perc -gt 50 ]; then
+					bat_color=$COLOR_BLUE
+					bat_symbol=""
+				elif [ $bat_perc -gt 20 ]; then
+					bat_color=$COLOR_YELLOW
+					bat_symbol=""
+				else
+					bat_color=$COLOR_RED
+					bat_symbol=""
+				fi
+
+				if [ $bat_status == "Charging" ]; then
+					bat_symbol=""
+				fi
+				battery="$battery$space%{F$bat_color}$bat_symbol ${bat_perc}%%%{F-}"
+				space=" "
 			done
-			;;
-	esac
-	printf "%s\n" "%{l}${wm_infos}%{c}${title}%{r}${wifi_info}${SEP}${volume_info}${SEP}${bat0_info}${SEP}${bat1_info}${SEP}${sys_infos}"
+
+            update_vol
+            ;;
+        T*)
+            title="%{T2}${line#?}%{T-}"
+            ;;
+        W*)
+            wm_infos=""
+            IFS=":"
+            set -- ${line#?}
+            while [ $# -gt 0 ] ; do
+                item=$1
+                name=${item#?}
+                case $item in
+                    O*)
+                        wm_infos="${wm_infos}%{F$COLOR_FG_HIGHLIGHT}%{B$COLOR_OCCUPIED}%{T2} $name %{T-}%{B-}%{F-}"
+                        ;;
+                    F*)
+                        wm_infos="${wm_infos}%{F$COLOR_FG_HIGHLIGHT}%{B$COLOR_FREE} $name %{B-}%{F-}"
+                        ;;
+                    U*)
+                        wm_infos="${wm_infos}%{F$COLOR_FG_HIGHLIGHT}%{B$COLOR_URGENT}%{T2} $name %{T-}%{B-}%{F-}"
+                        ;;
+                    o*)
+                        wm_infos="${wm_infos}%{F$COLOR_OCCUPIED}%{T2} $name %{T-}%{F-}"
+                        ;;
+                    f*)
+                        wm_infos="${wm_infos}%{F$COLOR_FREE} $name %{F-}"
+                        ;;
+                    u*)
+                        wm_infos="${wm_infos}%{F$COLOR_URGENT}%{T2} $name %{T-}%{F-}"
+                        ;;
+                esac
+                shift
+            done
+            ;;
+    esac
+
+    printf "%s\n" "%{l}$wm_infos%{c}$title%{r}$wifi $sep $volume $sep $battery $sep $clock"
 done
+
