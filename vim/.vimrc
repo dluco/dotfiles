@@ -43,10 +43,10 @@ set smartcase
 set incsearch
 
 " Highlight search results
-"set hlsearch
+set hlsearch
 
 " Bind key to clear search highlighting
-"nmap <leader>/ :nohlsearch<CR>
+nmap <leader>/ :nohlsearch<CR>
 
 " Don't redraw while executing macros (good performance config).
 " Note: causes window title and statusline to not be updated
@@ -149,3 +149,38 @@ set statusline+=%{&ff}]							"file format
 set statusline+=\ %l/%L:						"cursor line/total lines
 set statusline+=\ %c,							"cursor column
 set statusline+=\ %P\ 							"percent through file
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Other
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let s:comment_map = {
+			\   "sh": '# ',
+			\   "c": '\/\/ ',
+			\   "cpp": '\/\/ ',
+			\   "go": '\/\/ ',
+			\   "java": '\/\/ ',
+			\   "javascript": '\/\/ ',
+			\   "php": '\/\/ ',
+			\   "python": '# ',
+			\   "ruby": '# ',
+			\   "vim": '" ',
+			\ }
+
+function! ToggleComment()
+    if has_key(s:comment_map, &filetype)
+        let comment_leader = s:comment_map[&filetype]
+        if getline('.') =~ "^" . comment_leader
+            " Uncomment the line
+            execute "silent s/^" . comment_leader . "//"
+        else
+            " Comment the line
+            execute "silent s/^/" . comment_leader . "/"
+        endif
+    else
+        echo "No comment leader found for filetype"
+    end
+endfunction
+
+noremap <leader><Space> :call ToggleComment()<cr>
+vnoremap <leader><Space> :call ToggleComment()<cr>
