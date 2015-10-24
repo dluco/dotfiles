@@ -2,19 +2,36 @@
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Set how many lines of history VIM has to remember
-set history=1024
+" Disable vi-compatibility
+set nocompatible
 
-" Map leader key to ','
-let mapleader = ","
-let g:mapleader = ","
+" Vundle setup
+filetype off
+
+" set the runtime path to include Vundle and initialize
+set runtimepath=~/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,~/.vim/after
+set rtp+=~/.vim/bundle/Vundle.vim
+
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'altercation/vim-colors-solarized'
+
+Plugin 'Valloric/YouCompleteMe'
+
+call vundle#end()
 
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
 
-" Disable vi-compatibility
-set nocompatible
+" Set how many lines of history VIM has to remember
+set history=1024
+
+" Map leader key to '\'
+let mapleader = "\\"
+let g:mapleader = "\\"
 
 " Disable splash screen
 set shortmess+=I
@@ -29,6 +46,9 @@ set number
 
 " Always show current position
 set ruler
+
+" Highlight current line
+set cursorline
 
 " Turn on wild menu
 set wildmenu
@@ -65,8 +85,19 @@ set magic
 syntax on
 
 " Vim colorscheme
-colorscheme default
-"set background=dark
+if &term=~'rxvt-unicode-256color'
+	" rxvt-unicode
+	set t_Co=256
+	set background=dark " dark | light "
+	colorscheme solarized
+	set cursorline
+elseif &term=~'xterm'
+	" default
+	colorscheme default
+
+	" Current-line highlight
+	hi CursorLine cterm=NONE ctermbg=0
+endif
 
 " Set utf8 as the standard encoding
 set encoding=utf-8
@@ -106,13 +137,13 @@ map <Down> gj
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Movement
+" => Window Movement
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-nmap <silent> <c-k> :wincmd k<CR>
-nmap <silent> <c-j> :wincmd j<CR>
-nmap <silent> <c-h> :wincmd h<CR>
-nmap <silent> <c-l> :wincmd l<CR>
+"nmap <silent> <c-k> :wincmd k<CR>
+"nmap <silent> <c-j> :wincmd j<CR>
+"nmap <silent> <c-h> :wincmd h<CR>
+"nmap <silent> <c-l> :wincmd l<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -150,21 +181,45 @@ set statusline+=\ %l/%L:						"cursor line/total lines
 set statusline+=\ %c,							"cursor column
 set statusline+=\ %P\ 							"percent through file
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Spelling
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set spelllang=en
+set spellfile=$HOME/.vim/spell/en.utf-8.add
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Other
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+set grepprg=grep\ -nH\ $*
+let g:tex_flavor = "latex"
+let g:Tex_DefaultTargetFormat = 'pdf'
+
+let g:Tex_ViewRule_dvi = 'xdvi'
+let g:Tex_ViewRule_pdf = 'zathura'
+
 let s:comment_map = {
-			\   "sh": '# ',
-			\   "c": '\/\/ ',
-			\   "cpp": '\/\/ ',
-			\   "go": '\/\/ ',
-			\   "java": '\/\/ ',
-			\   "javascript": '\/\/ ',
-			\   "php": '\/\/ ',
-			\   "python": '# ',
-			\   "ruby": '# ',
-			\   "vim": '" ',
+			\   "sh": '#',
+			\   "c": '\/\/',
+			\   "cpp": '\/\/',
+			\   "go": '\/\/',
+			\   "java": '\/\/',
+			\   "javascript": '\/\/',
+			\   "php": '\/\/',
+			\   "python": '#',
+			\   "ruby": '#',
+			\   "vim": '"',
+			\   "tex": '%',
 			\ }
 
 function! ToggleComment()
