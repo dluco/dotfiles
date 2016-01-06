@@ -10,8 +10,12 @@ export EDITOR=vim
 export PAGER=less
 export BROWSER=firefox
 
-export TERMINAL=axon
+export TERMINAL=urxvtc
 export PANEL_FIFO="/tmp/panel-fifo"
+
+export AURDEST=~/aur/.aurdest
+
+export _JAVA_AWT_WM_NONREPARENTING=1
 
 # If X is not already running, this is tty1,
 # and this is not the root user, then start X (or sedia).

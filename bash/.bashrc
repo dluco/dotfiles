@@ -33,6 +33,8 @@ alias zathura='zathura 2>/dev/null'
 
 alias please='sudo'
 
+alias jack_start='jackd -R -d alsa'
+
 # Enhance colored "ls" output
 eval $(dircolors -b)
 

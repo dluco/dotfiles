@@ -22,6 +22,12 @@ bspc control --subscribe > "$PANEL_FIFO" &
 xtitle -sf 'T%s' > "$PANEL_FIFO" &
 clock -i "$CLOCK_INTERVAL" -sf 'C[%a %b %d] %l:%M %P' > "$PANEL_FIFO" &
 
+# build font options and arguments
+#font_opts=""
+#for font in "${PANEL_FONT_FAMILY[@]}"; do
+#	font_opts="$font_opts -f '$font'"
+#done
+
 cat "$PANEL_FIFO" \
 	| ./panel_bar \
 	| bar \

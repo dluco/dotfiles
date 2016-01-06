@@ -20,6 +20,10 @@ Plugin 'altercation/vim-colors-solarized'
 
 Plugin 'Valloric/YouCompleteMe'
 
+Plugin 'ctrlpvim/ctrlp.vim'
+
+Plugin 'majutsushi/tagbar'
+
 call vundle#end()
 
 " Enable filetype plugins
@@ -35,6 +39,8 @@ let g:mapleader = "\\"
 
 " Disable splash screen
 set shortmess+=I
+
+set autochdir
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -91,6 +97,9 @@ if &term=~'rxvt-unicode-256color'
 	set background=dark " dark | light "
 	colorscheme solarized
 	set cursorline
+
+	" Toggle solarized background colour
+	call togglebg#map("<F5>")
 elseif &term=~'xterm'
 	" default
 	colorscheme default
@@ -140,10 +149,10 @@ map <Down> gj
 " => Window Movement
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"nmap <silent> <c-k> :wincmd k<CR>
-"nmap <silent> <c-j> :wincmd j<CR>
-"nmap <silent> <c-h> :wincmd h<CR>
-"nmap <silent> <c-l> :wincmd l<CR>
+"nnoremap <C-UP> :wincmd k<CR>
+"nnoremap <C-DOWN> <C-W><C-DOWN>
+"nnoremap <C-LEFT> <C-W><C-LEFT>
+"nnoremap <C-RIGHT> <C-W><C-RIGHT>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -194,7 +203,25 @@ set spellfile=$HOME/.vim/spell/en.utf-8.add
 " => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Uncomment to disable YCM
+"let g:loaded_youcompleteme = 1
+
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Tags
+" Down:	<Ctrl-]>
+" Up:	<Ctrl-t>
+" Jump to tag: ":ta[g] tag_name"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set tags=.tags;
+
+nmap <silent> <F6> :TagbarToggle<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -237,5 +264,5 @@ function! ToggleComment()
     end
 endfunction
 
-noremap <leader><Space> :call ToggleComment()<cr>
-vnoremap <leader><Space> :call ToggleComment()<cr>
+noremap <silent> <leader><Space> :call ToggleComment()<cr>
+vnoremap <silent> <leader><Space> :call ToggleComment()<cr>
