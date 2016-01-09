@@ -1,0 +1,33 @@
+!! font
+URxvt*font: xft:Source Code Pro:size=11
+
+!! number of lines to save in scrollback buffer
+URxvt*saveLines: 1024
+
+!! do not scroll with output
+URxvt*scrollTtyOutput: false
+
+!! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+URxvt*scrollWithBuffer: true
+
+!! scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress: true
+
+!! disable scrollbar
+URxvt*scrollBar: false
+
+!! disable scrollback buffer in secondary screens
+URxvt*secondaryScreen: true
+URxvt*secondaryScroll: false
+
+!! enable scrollwheel in secondary screens
+URxvt*secondaryWheel: true
+
+!! color scheme
+#include "solarized-dark"
+URxvt*intensityStyles: false
+
+!! extensions
+URxvt.perl-ext-common: default,matcher
+URxvt.url-launcher: /usr/bin/firefox
+URxvt.matcher.button: 1
